@@ -1,1 +1,1 @@
-# ecomerse-MEAN
+# E-Commerce MEAN Stack Aplication
