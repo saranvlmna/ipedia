@@ -1,25 +1,20 @@
 const { StatusCodes } = require("http-status-codes");
-const { Prdcs } = require("../models");
 const { ProductsService } = require("../services");
-const { User } = require("../models");
 const { UserService } = require("../services");
 
 module.exports = {
 
-    signup: (req, res, next) => {
-        res.render('users/signup.hbs')
-    },
-
     CreateAccount: async (req, res, next) => {
         try {
-            await UserService.create(req.body)
+           const result= await UserService.create(req.body)
+            return res.status(StatusCodes.OK).json({
+                message: "User created successfully",
+                data: result,
+                meta:{}
+            })
         } catch (error) {
             next(error)
         }
-    },
-
-    login: (req, res, next) => {
-        res.render('users/login.hbs')
     },
 
     LoginAccount: async (req, res, next) => {

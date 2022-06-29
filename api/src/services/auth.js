@@ -1,33 +1,23 @@
 const { User } = require("../db");
 const PasswordService = require("./password")
-// const { findByEmail, findByMobile } = require("../db/auth");
 const { BadRequestError } = require("../errors");
-const auth = require("../models/auth");
 const { validateEmail } = require("../utils");
 
-async function create(auth) {
-    try {
-        let existinguser;
-        existinguser = await findByEmail(auth.email)
-        if (existinguser) {
-            throw new BadRequestError("User Alredy exists with this Email id")
-        }
-
-        existinguser = await findByMobile(auth.number)
-        if (existinguser) {
-            throw new BadRequestError("User Alredy exists with this Mobile Number")
-        }
-
-        auth.password = await PasswordService.encrypt(auth.password)
-        auth = await User.create(auth);
-
-    } catch (error) {
-        console.log(error)
+create = async (auth) => {
+    let existinguser;
+    existinguser = await findByEmail(auth.email)
+    if (existinguser) {
+        throw new BadRequestError("User Alredy exists with this Email id")
     }
-
+    existinguser = await findByMobile(auth.number)
+    if (existinguser) {
+        throw new BadRequestError("User Alredy exists with this Mobile Number")
+    }
+    auth.password = await PasswordService.encrypt(auth.password)
+   return await User.create(auth);
 }
 
-async function login(auth,) {
+login = async (auth) => {
     try {
         return new Promise(async (resolve, reject) => {
             if (!auth.email && !auth.password) {
@@ -47,7 +37,7 @@ async function login(auth,) {
                 resolve(existinguser)
             }
         })
-        
+
     } catch (error) {
         console.log(error)
     }
@@ -56,20 +46,15 @@ async function login(auth,) {
 
 }
 
-async function findByEmail(email) {
-    if (!email) {
-        throw new BadRequestError("Email is required")
-    }
+findByEmail = async(email) => {
     if (!validateEmail(email)) {
         throw new BadRequestError("Email is Invalid")
     }
     return await User.findByEmail(email)
 }
 
-async function findByMobile(number) {
-    if (!number) {
-        throw new BadRequestError("Mobile Number Is required")
-    }
+findByMobile = async(mobile) => {
+    return await User.findByMobile(mobile)
 }
 
 module.exports = {

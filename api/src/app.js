@@ -8,8 +8,6 @@ var fileUpload = require('express-fileupload');
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
 
-
-var hbs = require('express-handlebars');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin')
 var session = require('express-session')
@@ -18,11 +16,6 @@ const app = express();
 
 //db connection
 dbConfig();
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.engine('hbs', hbs.engine({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials/' }));
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

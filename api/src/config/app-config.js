@@ -18,7 +18,7 @@ const schema = {
       },
     db: {
         url: {
-            default: "mongodb://localhost/ecomers",
+            default: "mongodb://localhost/vLmNa",
             env: "DB_URL"
           },
     }

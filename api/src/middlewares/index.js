@@ -1,4 +1,4 @@
-const { errorHandler } = require("./error-handler");
 module.exports = {
-  errorHandler
-};
+  validate: require("./validator"),
+  errorHandler: require("./error-handler")
+}

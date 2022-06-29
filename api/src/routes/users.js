@@ -1,14 +1,13 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-const router=new express.Router();
 
-router.get('/login',userController.login)
+const userController = require('../controllers/userController');
+const { validate } = require("../middlewares");
+const { userSchema } = require('../schemas');
+const router = new express.Router();
 
 router.post('/login',userController.LoginAccount)
 
-router.get('/signup',userController.signup)
-
-router.post('/signup',userController.CreateAccount)
+router.post('/signup', validate(userSchema), userController.CreateAccount);
 
 router.get('/', userController.AllProducts)
 
