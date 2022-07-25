@@ -1,4 +1,4 @@
-const products = require("../models/products");
+const { StatusCodes } = require("http-status-codes");
 const { ProductsService } = require("../services");
 
 
@@ -6,8 +6,13 @@ module.exports = {
 
     addProduct: async (req, res, next) => {
         try {
-            await ProductsService.create(req.body, req.files.image)
-            res.redirect('/admin')
+            const data = req.body;
+            const img = req.files.image;
+            const product = await ProductsService.create(data, img);
+            return res.status(StatusCodes.CREATED).json({
+                message: "Product created successfully",
+                data: product,
+            });
         } catch (error) {
             next(error)
         }
@@ -17,8 +22,11 @@ module.exports = {
         try {
             const id = req.query.id
             const data = req.body
-            await ProductsService.editProduct(id, data)
-            res.redirect('/admin')
+            const result = await ProductsService.editProduct(id, data)
+            return res.status(StatusCodes.OK).json({
+                message: "Product updated successfully",
+                data: result,
+            })
         } catch (error) {
             console.log(error)
         }
@@ -28,8 +36,11 @@ module.exports = {
     deleteProduct: async (req, res) => {
         try {
             const id = req.query.id
-            await ProductsService.deleteProduct(id)
-            res.redirect('/admin')
+            const result =await ProductsService.deleteProduct(id)
+            res.status(StatusCodes.OK).json({
+                message: "Product deleted successfully",
+                data: result,
+            })
         } catch (error) {
             console.log(error)
         }
@@ -41,7 +52,10 @@ module.exports = {
             const limit = req.query.limit || 20;
             const page = req.query.page || 1;
             let products = await ProductsService.list(page, limit);
-            res.render('admin/view-product.hbs', { admin: true, products })
+            res.status(StatusCodes.OK).json({
+                message: "Products fetched successfully",
+                data: products,
+            })
         } catch (error) {
             next(error)
         }
@@ -51,10 +65,10 @@ module.exports = {
         try {
             const limit = req.query.limit || 20;
             const page = req.query.page || 1;
-            const products = await ProductsService.list(page, limit)
+            const details = await ProductsService.list(page, limit)
             return res.status(StatusCodes.OK).json({
-                message: "Products fetched successfully",
-                data: products,
+                message: "Products details fetched successfully",
+                data: details,
             })
         } catch (error) {
             next(error)

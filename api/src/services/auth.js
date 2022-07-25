@@ -1,6 +1,6 @@
 const { User } = require("../db");
 const PasswordService = require("./password")
-const { BadRequestError } = require("../errors");
+const { BadRequestError } = require("../errors").default;
 const { validateEmail } = require("../utils");
 
 create = async (auth) => {

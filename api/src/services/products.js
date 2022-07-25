@@ -1,6 +1,6 @@
 const { response } = require("express")
 const { Prdcs } = require("../db")
-const { BadRequestError } = require("../errors")
+const { BadRequestError } = require("../errors").default
 
 async function create(products, img) {
     try {
@@ -36,15 +36,15 @@ async function list(page, limit) {
 }
 
 async function FindProduct(id) {
-   return await Prdcs.findOne(id)
+    return await Prdcs.findOne(id)
 }
 
 async function deleteProduct(id) {
     await Prdcs.delete(id)
 }
 
-async function editProduct(id,data) {
-   var abc= await Prdcs.edit(id,data)
+async function editProduct(id, data) {
+    var abc = await Prdcs.edit(id, data)
 }
 
 module.exports = {
