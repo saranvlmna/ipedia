@@ -15,6 +15,11 @@ const schema = new Schema({
     },
     image: {
         type: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
 });
+
 module.exports = model("Prdcs", schema);

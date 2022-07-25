@@ -5,9 +5,10 @@ const { validate } = require("../middlewares");
 const { userSchema } = require('../schemas');
 const router = new express.Router();
 
-router.post('/login',authController.LoginAccount)
+router.post('/login',authController.loginAccount)
 
-router.post('/signup', validate(userSchema), authController.CreateAccount);
+router.post('/signup', validate(userSchema), authController.createAccount);
+
 
 
 

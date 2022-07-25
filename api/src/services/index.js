@@ -1,5 +1,5 @@
 module.exports={
-    ProductsService:require("./products"),
-    UserService:require("./auth"),
-    PasswordService:require("./password")
+    productsService:require("./products"),
+    authService:require("./auth"),
+    passwordService:require("./password")
 }

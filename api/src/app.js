@@ -23,8 +23,8 @@ app.use(helmet());
 app.use(morgan("combined", morganOption));
 
 // routes
-app.use('/', authRouter);
-app.use('/admin', productRouter);
+app.use('/auth', authRouter);
+app.use('/', productRouter);
 
 
 // custom middleware

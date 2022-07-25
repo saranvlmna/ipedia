@@ -1,12 +1,11 @@
-const { StatusCodes } = require("http-status-codes");
-const { ProductsService } = require("../services");
-const { UserService } = require("../services");
+const { StatusCodes } = require("http-status-codes");;
+const { authService } = require("../services");
 
 module.exports = {
 
-    CreateAccount: async (req, res, next) => {
+    createAccount: async (req, res, next) => {
         try {
-            const result = await UserService.create(req.body)
+            const result = await authService.create(req.body)
             return res.status(StatusCodes.CREATED).json({
                 message: "User created successfully",
                 data: result,
@@ -16,9 +15,9 @@ module.exports = {
         }
     },
 
-    LoginAccount: async (req, res, next) => {
+    loginAccount: async (req, res, next) => {
         try {
-            const user = await UserService.login(req.body);
+            const user = await authService.login(req.body);
             return res.status(StatusCodes.OK).json({
                 message: "User logged in successfully",
                 data: user,
@@ -28,7 +27,5 @@ module.exports = {
             next(error)
         }
     },
-
-
 
 }
