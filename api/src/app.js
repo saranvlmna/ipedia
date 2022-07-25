@@ -8,8 +8,8 @@ var fileUpload = require('express-fileupload');
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
 
-var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin')
+var usersRouter = require('./routes/auth');
+var adminRouter = require('./routes/product')
 var session = require('express-session')
 
 const app = express();

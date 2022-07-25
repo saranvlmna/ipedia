@@ -1,4 +1,4 @@
 module.exports={
-    usersRouter:require("./users"),
-    adminRouter:require("./admin")
+    usersRouter:require("./auth"),
+    adminRouter:require("./product")
 }

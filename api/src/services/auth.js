@@ -14,16 +14,13 @@ create = async (auth) => {
         throw new BadRequestError("User Alredy exists with this Mobile Number")
     }
     auth.password = await PasswordService.encrypt(auth.password)
-   return await User.create(auth);
+    return await User.create(auth);
 }
 
 login = async (auth) => {
     try {
         return new Promise(async (resolve, reject) => {
-            if (!auth.email && !auth.password) {
-                throw new BadRequestError("Email or Password is required")
-            }
-            else if (!validateEmail(auth.email)) {
+            if (!validateEmail(auth.email)) {
                 throw new BadRequestError("Email is Invalid")
             }
             let existinguser;
@@ -33,27 +30,30 @@ login = async (auth) => {
             }
             let isValid;
             isValid = await PasswordService.compare(auth.password, existinguser.password)
-            if (isValid) {
+            if (!isValid) {
+                throw new BadRequestError("Password is Invalid")
+            }
+            else if (isValid) {
                 resolve(existinguser)
             }
         })
 
     } catch (error) {
-        console.log(error)
+        reject(error)
     }
 
 
 
 }
 
-findByEmail = async(email) => {
+findByEmail = async (email) => {
     if (!validateEmail(email)) {
         throw new BadRequestError("Email is Invalid")
     }
     return await User.findByEmail(email)
 }
 
-findByMobile = async(mobile) => {
+findByMobile = async (mobile) => {
     return await User.findByMobile(mobile)
 }
 
