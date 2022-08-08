@@ -1,45 +1,41 @@
 const { User } = require("../db");
-const passwordService = require('.')
+const passwordService = require("./password");
+
 
 module.exports = {
+    signupUser: async (data) => {
+        let existingUser;
 
-    verify: async (
-        accessToken,
-        refreshToken,
-        profile,
-        callback
-    ) => {
-        const query = {
-            name: profile._json.name,
-            email: profile._json.email,
-            picture: profile._json.picture,
-            accessToken: accessToken,
-            refreshToken: refreshToken,
+        existingUser = await User.findByEmail(data.email)
+        if (existingUser) {
+            throw new Error("User Already exists with this Email id")
         }
-        const user = await loginOrsignup(query);
-        return callback(null, user);
+
+        existingUser = await User.findByMobile(data.phone)
+        if (existingUser) {
+            throw new Error("User Already exists with this Mobile Number")
+        }
+
+        data.password = await passwordService.encrypt(data.password)
+        return await User.create(data);
     },
 
-    serializeUser: (user, callback) => {
-        return callback(null, user);
-    },
 
-    deserializeUser: (user, callback) => {
-        return callback(null, user);
-    },
 
-    callback: (req, res) => {
-        console.log(req.user)
-    },
+    loginUser: async (auth) => {
+        let existingUser;
+        existingUser = await User.findByEmail(auth.email)
+        if (!existingUser) {
+            throw new Error('User Does not Exists');
+        }
+        let isValid;
+        isValid = await passwordService.compare(auth.password, existingUser.password)
+        if (!isValid) {
+            throw new Error('Password is Invalid');
+        }
+        else if (isValid) {
+            return existingUser
+        }
+    }
 }
 
-const loginOrsignup = async (user) => {
-    let existingUser;
-    existingUser = await User.findByEmail(user.email)
-    if (!existingUser) {
-        return existingUser = await User.create(user)
-    }
-    else {
-        return existingUser
-    }
-}

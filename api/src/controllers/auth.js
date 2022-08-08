@@ -1,26 +1,26 @@
 const { StatusCodes } = require("http-status-codes");
-const { adminService } = require("../services");
+const { authService } = require("../services");
 
 module.exports = {
 
-    adminLogin: async (req, res, next) => {
+    login: async (req, res, next) => {
         try {
-            const admin = await adminService.loginAdmin(req.body);
+            const user = await authService.loginUser(req.body);
             return res.status(StatusCodes.OK).json({
-                message: "Admin logged in successfully",
-                data: admin,
+                message: "user logged in successfully",
+                data: user,
             })
         } catch (error) {
             next(error);
         }
     },
 
-    adminSignup: async (req, res, next) => {
+    signup: async (req, res, next) => {
         try {
-            const admin = await adminService.signupAdmin(req.body);
+            const user = await authService.signupUser(req.body);
             return res.status(StatusCodes.OK).json({
-                message: "Admin signed up successfully",
-                data: admin,
+                message: "user signed up successfully",
+                data: user,
             })
         } catch (error) {
             next(error);
