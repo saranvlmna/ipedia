@@ -1,6 +1,6 @@
 module.exports={
     productsService:require("./products"),
-    userService: require("./user"),
-    adminService: require("./admin"),
+    googleAuthService: require("./google"),
+    authService: require("./user"),
     passwordService:require("./password")
 }

@@ -1,19 +1,19 @@
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const google = express.Router();
+const auth = express.Router();
 
 const authController = require('../controllers/auth');
 const { config } = require('../config');
-const { userService } = require('../services');
+const { googleAuthService } = require('../services');
 
 const goggleConfg = config.get('google');
 
-passport.use(new GoogleStrategy(goggleConfg, userService.verify))
+passport.use(new GoogleStrategy(goggleConfg, googleAuthService.verify))
 
-passport.serializeUser(userService.serializeUser);
+passport.serializeUser(googleAuthService.serializeUser);
 
-passport.deserializeUser(userService.deserializeUser);
+passport.deserializeUser(googleAuthService.deserializeUser);
 
 const authenticate = passport.authenticate('google', {
     failureRedirect: '/auth/failed',
@@ -22,10 +22,10 @@ const authenticate = passport.authenticate('google', {
     prompt: 'consent',
 });
 
-google.post('/admin/login', authController.adminLogin)
-google.post('/admin/signup', authController.adminSignup)
-google.get('/google', authenticate)
-google.get('/google/callback', authenticate, userService.callback)
-google.get('/failed', authController.authFailed)
+auth.post('/login', authController.login)
+auth.post('/signup', authController.signup)
+auth.get('/google', authenticate)
+auth.get('/google/callback', authenticate, googleAuthService.callback)
+auth.get('/failed', authController.authFailed)
 
-module.exports = google
+module.exports = auth

@@ -6,6 +6,12 @@ const schema = new Schema({
     email: {
         type: String,
     },
+    number: {
+        type: Number,
+    },
+    password: {
+        type: String,
+    },
     picture: {
         type: String,
     },
@@ -14,6 +20,10 @@ const schema = new Schema({
     },
     refreshToken: {
         type: String,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
     },
     createdAt: {
         type: Date,

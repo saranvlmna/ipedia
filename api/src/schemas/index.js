@@ -10,13 +10,28 @@ module.exports = {
                 format: "email"
             },
             number: {
-                type: "string"
+                type: "string" || "number"
+            },
+            password: {
+                type: "string" || "number"
+            }
+        },
+        required: ["name", "email", "phone", "password"],
+        additionalProperties: true
+    },
+
+    loginSchema: {
+        type: "object",
+        properties: {
+            email: {
+                type: "string",
+                format: "email"
             },
             password: {
                 type: "string"
             }
         },
-        required: ["name", "email", "password","number"],
+        required: ["email", "password"],
         additionalProperties: false
-    },
+    }
 };
