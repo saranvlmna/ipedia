@@ -1,15 +1,29 @@
 const express = require('express');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const google = express.Router();
 
 const authController = require('../controllers/auth');
-const { validate } = require("../middlewares");
-const { userSchema } = require('../schemas');
-const router = new express.Router();
+const { config } = require('../config');
+const { authService } = require('../services/auth');
 
-router.post('/login',authController.loginAccount)
+const goggleConfg = config.get('google');
 
-router.post('/signup', validate(userSchema), authController.createAccount);
+passport.use(new GoogleStrategy(goggleConfg, authService.verify))
 
+passport.serializeUser(authService.serializeUser);
 
+passport.deserializeUser(authService.deserializeUser);
 
+const authenticate = passport.authenticate('google', {
+    failureRedirect: '/auth/failed',
+    scope: goggleConfg.scope,
+    accessType: 'offline',
+    prompt: 'consent',
+});
 
-module.exports = router;
+google.get('/google', authenticate)
+google.get('/google/callback', authenticate, authService.callback)
+google.get('/failed', authController.authFailed)
+
+module.exports = google

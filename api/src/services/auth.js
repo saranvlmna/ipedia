@@ -1,63 +1,37 @@
-const { User } = require("../db");
-const PasswordService = require("./password")
-const { BadRequestError } = require("../errors").default;
-const { validateEmail } = require("../utils");
+const users = require('./user')
 
-create = async (auth) => {
-    let existinguser;
-    existinguser = await findByEmail(auth.email)
-    if (existinguser) {
-        throw new BadRequestError("User Alredy exists with this Email id")
+const verify = async (
+    accessToken,
+    refreshToken,
+    profile,
+    callback
+) => {
+    const query = {
+        name: profile._json.name,
+        email: profile._json.email,
+        picture: profile._json.picture,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
     }
-    existinguser = await findByMobile(auth.number)
-    if (existinguser) {
-        throw new BadRequestError("User Alredy exists with this Mobile Number")
-    }
-    auth.password = await PasswordService.encrypt(auth.password)
-    return await User.create(auth);
+    const user = await users.loginOrsignup(query);
+    return callback(null, user);
 }
 
-login = async (auth) => {
-    try {
-        return new Promise(async (resolve, reject) => {
-            if (!validateEmail(auth.email)) {
-                throw new BadRequestError("Email is Invalid")
-            }
-            let existinguser;
-            existinguser = await findByEmail(auth.email)
-            if (!existinguser) {
-                throw new BadRequestError("User Does not Exists")
-            }
-            let isValid;
-            isValid = await PasswordService.compare(auth.password, existinguser.password)
-            if (!isValid) {
-                throw new BadRequestError("Password is Invalid")
-            }
-            else if (isValid) {
-                resolve(existinguser)
-            }
-        })
+const serializeUser = (user, callback) => {
+    return callback(null, user);
+};
 
-    } catch (error) {
-        reject(error)
-    }
+const deserializeUser = (user, callback) => {
+    return callback(null, user);
+};
 
-
-
+const callback = (req, res) => {
+console.log(req.user)
 }
 
-findByEmail = async (email) => {
-    if (!validateEmail(email)) {
-        throw new BadRequestError("Email is Invalid")
-    }
-    return await User.findByEmail(email)
-}
-
-findByMobile = async (mobile) => {
-    return await User.findByMobile(mobile)
-}
-
-module.exports = {
-    create,
-    login
+module.exports.authService = {
+    verify,
+    serializeUser,
+    deserializeUser,
+    callback
 }
