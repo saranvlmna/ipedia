@@ -1,6 +1,5 @@
-const { response } = require("express")
 const { Prdcs } = require("../db")
-const { BadRequestError } = require("../errors").default
+const { BadRequestError } = require("../errors")
 
 async function create(products, img) {
     try {

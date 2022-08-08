@@ -3,6 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 var path = require('path');
+const session = require('express-session');
 
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
@@ -15,6 +16,7 @@ const app = express();
 //db connection
 dbConfig();
 
+app.use(session({ secret: 'kannappan' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

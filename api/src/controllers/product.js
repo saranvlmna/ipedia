@@ -1,18 +1,25 @@
 const { StatusCodes } = require("http-status-codes");
 const { ProductsService } = require("../services");
+const multer = require("multer");
+const fileUpload = require("../middlewares/fileupload");
+const upload = multer({ fileUpload })
 
 
 module.exports = {
 
     addProduct: async (req, res, next) => {
         try {
-            const data = req.body;
-            const img = req.files.image;
-            const product = await ProductsService.create(data, img);
-            return res.status(StatusCodes.CREATED).json({
-                message: "Product created successfully",
-                data: product,
+            upload.single("image")(req, res, () => {
+                const img = req.file;
+                console.log(img);
             });
+            // const data = req.body;
+            // const img = req.files.image;
+            // const product = await ProductsService.create(data, img);
+            // return res.status(StatusCodes.CREATED).json({
+            //     message: "Product created successfully",
+            //     data: product,
+            // });
         } catch (error) {
             next(error)
         }
@@ -36,7 +43,7 @@ module.exports = {
     deleteProduct: async (req, res) => {
         try {
             const id = req.query.id
-            const result =await ProductsService.deleteProduct(id)
+            const result = await ProductsService.deleteProduct(id)
             res.status(StatusCodes.OK).json({
                 message: "Product deleted successfully",
                 data: result,
@@ -74,6 +81,6 @@ module.exports = {
             next(error)
         }
 
-    }
+    },
 
 }
