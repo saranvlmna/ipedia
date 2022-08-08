@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { ProductsService } = require("../services");
+const  productsService  = require("../services/products");
 const multer = require("multer");
 const fileUpload = require("../middlewares/fileupload");
 const upload = multer({ fileUpload })
@@ -15,7 +15,7 @@ module.exports = {
             });
             // const data = req.body;
             // const img = req.files.image;
-            // const product = await ProductsService.create(data, img);
+            // const product = await productsService.create(data, img);
             // return res.status(StatusCodes.CREATED).json({
             //     message: "Product created successfully",
             //     data: product,
@@ -29,7 +29,7 @@ module.exports = {
         try {
             const id = req.query.id
             const data = req.body
-            const result = await ProductsService.editProduct(id, data)
+            const result = await productsService.editProduct(id, data)
             return res.status(StatusCodes.OK).json({
                 message: "Product updated successfully",
                 data: result,
@@ -43,7 +43,7 @@ module.exports = {
     deleteProduct: async (req, res) => {
         try {
             const id = req.query.id
-            const result = await ProductsService.deleteProduct(id)
+            const result = await productsService.deleteProduct(id)
             res.status(StatusCodes.OK).json({
                 message: "Product deleted successfully",
                 data: result,
@@ -58,7 +58,7 @@ module.exports = {
         try {
             const limit = req.query.limit || 20;
             const page = req.query.page || 1;
-            let products = await ProductsService.list(page, limit);
+            let products = await productsService.list(page, limit);
             res.status(StatusCodes.OK).json({
                 message: "Products fetched successfully",
                 data: products,
@@ -72,7 +72,7 @@ module.exports = {
         try {
             const limit = req.query.limit || 20;
             const page = req.query.page || 1;
-            const details = await ProductsService.list(page, limit)
+            const details = await productsService.list(page, limit)
             return res.status(StatusCodes.OK).json({
                 message: "Products details fetched successfully",
                 data: details,
