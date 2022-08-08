@@ -1,5 +1,6 @@
 module.exports={
     productsService:require("./products"),
-    authService:require("./auth"),
+    userService: require("./user"),
+    adminService: require("./admin"),
     passwordService:require("./password")
 }

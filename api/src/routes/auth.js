@@ -5,15 +5,15 @@ const google = express.Router();
 
 const authController = require('../controllers/auth');
 const { config } = require('../config');
-const { authService } = require('../services/auth');
+const { userService } = require('../services');
 
 const goggleConfg = config.get('google');
 
-passport.use(new GoogleStrategy(goggleConfg, authService.verify))
+passport.use(new GoogleStrategy(goggleConfg, userService.verify))
 
-passport.serializeUser(authService.serializeUser);
+passport.serializeUser(userService.serializeUser);
 
-passport.deserializeUser(authService.deserializeUser);
+passport.deserializeUser(userService.deserializeUser);
 
 const authenticate = passport.authenticate('google', {
     failureRedirect: '/auth/failed',
@@ -22,8 +22,10 @@ const authenticate = passport.authenticate('google', {
     prompt: 'consent',
 });
 
+google.post('/admin/login', authController.adminLogin)
+google.post('/admin/signup', authController.adminSignup)
 google.get('/google', authenticate)
-google.get('/google/callback', authenticate, authService.callback)
+google.get('/google/callback', authenticate, userService.callback)
 google.get('/failed', authController.authFailed)
 
 module.exports = google
