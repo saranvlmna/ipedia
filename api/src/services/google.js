@@ -1,6 +1,6 @@
 const { User } = require("../db");
 const FRONTEND_URL = process.env.FRONTEND_URL
-
+const sendMail = require("./mail");
 
 module.exports = {
 
@@ -38,7 +38,13 @@ const loginOrsignup = async (user) => {
     let existingUser;
     existingUser = await User.findByEmail(user.email)
     if (!existingUser) {
-        return existingUser = await User.create(user)
+        existingUser = await User.create(user)
+        const mail = {
+            to: existingUser.email,
+            subject: 'Congratulations! You’re In vLmNa Now',
+        }
+        sendMail.Mail(mail)
+        return existingUser
     }
     else {
         return existingUser
