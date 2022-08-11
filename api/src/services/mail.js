@@ -1,34 +1,65 @@
-const Mailjet = require('node-mailjet')
-const mailjet = Mailjet.apiConnect(
-    process.env.MJ_APIKEY_PUBLIC,
-    process.env.MJ_APIKEY_PRIVATE,
-);
-const request = mailjet
-    .post("send", { 'version': 'v3.1' })
-    .request({
-        "Messages": [
-            {
-                "From": {
-                    "Email": "saranvlmna@gmail.com",
-                    "Name": "dev"
-                },
-                "To": [
-                    {
-                        "Email": "saranvlmna@gmail.com",
-                        "Name": "dev"
-                    }
-                ],
-                "Subject": "Welcome to vLmNa!",
-                "TextPart": "",
-                "HTMLPart": "",
-                "CustomID": ""
+var nodemailer = require('nodemailer');
+var fs = require('fs');
+require('dotenv').config()
+
+exports.Mail = (mailOptions) => {
+
+    let transport = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    var readHTMLFile = function (path, callback) {
+        fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+            if (err) {
+                callback(err);
+                throw err;
             }
-        ]
-    })
-request
-    .then((result) => {
-        console.log(result.body)
-    })
-    .catch((err) => {
-        console.log(err.statusCode)
-    })
+            else {
+                callback(null, html);
+            }
+        });
+    };
+
+    readHTMLFile(__dirname + '/email.template.html', function (err, html) {
+        const mail = {
+            ...mailOptions,
+            html: html
+
+        }
+        transport.sendMail(mail)
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
