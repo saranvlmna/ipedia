@@ -1,5 +1,6 @@
 const { User } = require("../db");
-const passwordService = require('.')
+const FRONTEND_URL = process.env.FRONTEND_URL
+
 
 module.exports = {
 
@@ -29,7 +30,7 @@ module.exports = {
     },
 
     callback: (req, res) => {
-        console.log(req.user)
+        res.redirect(`${FRONTEND_URL}`);
     },
 }
 

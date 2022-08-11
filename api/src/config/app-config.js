@@ -49,6 +49,10 @@ const schema = {
             default: true,
         },
     },
+    frontendUrl: {
+        default: 'http://localhost:4200/',
+        env: 'FRONTEND_URL',
+    },
 }
 
 convict.addFormat(url);

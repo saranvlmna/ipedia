@@ -33,12 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   googleAuth() {
-    this.auth.googleAuth().subscribe(data => {
-      if (data) {
-        console.log(data);
-        this.router.navigate([this.returnUrl]);
-      }
-    })
+    this.auth.googleAuth()
   }
 
 }

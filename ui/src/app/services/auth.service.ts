@@ -20,7 +20,8 @@ export class AuthService {
     }
 
     googleAuth() { 
-        return this.http.get(`${BASE_URL}auth/google`);
+        // return this.http.get(`${BASE_URL}auth/google`);
+       return window.location.href = `${BASE_URL}auth/google`;
     }
 }
 
