@@ -1,6 +1,6 @@
 const { User } = require("../db");
 const passwordService = require("./password");
-
+const sendMail = require("./mail");
 
 module.exports = {
     signupUser: async (data) => {
@@ -17,7 +17,13 @@ module.exports = {
         }
 
         data.password = await passwordService.encrypt(data.password)
-        return await User.create(data);
+        return await User.create(data).then((res) => {
+            const mail = {
+                to: res.email,
+                subject: 'Congratulations! You’re In vLmNa Now',
+            }
+            sendMail.Mail(mail)
+        })
     },
 
 
@@ -38,4 +44,17 @@ module.exports = {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
