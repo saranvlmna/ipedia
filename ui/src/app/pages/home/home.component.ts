@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listproducts() {
-    this.products.getAll().subscribe(data => { 
-      console.log(data);
-    });
-  }
+  // listproducts() {
+  //   this.products.getAll().subscribe(data => { 
+  //     console.log(data);
+  //   });
+  // }
 }

@@ -1,5 +1,7 @@
 const { User } = require("../db");
-const passwordService = require('.')
+const FRONTEND_URL = process.env.FRONTEND_URL
+const sendMail = require("./mail");
+const userController = require("../controllers/auth")
 
 module.exports = {
 
@@ -29,7 +31,7 @@ module.exports = {
     },
 
     callback: (req, res) => {
-        console.log(req.user)
+        res.redirect(`${FRONTEND_URL}`);
     },
 }
 
@@ -37,7 +39,13 @@ const loginOrsignup = async (user) => {
     let existingUser;
     existingUser = await User.findByEmail(user.email)
     if (!existingUser) {
-        return existingUser = await User.create(user)
+        existingUser = await User.create(user)
+        const mail = {
+            to: existingUser.email,
+            subject: 'Congratulations! You’re In vLmNa Now',
+        }
+        sendMail.Mail(mail)
+        return existingUser
     }
     else {
         return existingUser
