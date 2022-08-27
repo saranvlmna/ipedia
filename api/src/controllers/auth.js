@@ -35,4 +35,16 @@ module.exports = {
         }
     },
 
+    getUser: async (req, res, next) => { 
+        try {
+            console.log(req);
+            return res.status(StatusCodes.OK).json({
+                message: "user fetched successfully",
+                data: req.user,
+            })
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }

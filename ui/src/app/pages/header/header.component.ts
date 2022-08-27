@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { productService } from 'src/app/services/product.service'
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private products: productService,private auth:AuthService) { }
 
-  ngOnInit(): void {}
-
-  goToHome(): void {
-    this.router.navigate(['home']);
+  ngOnInit(): void {
+    this.products.getAll()
+    this.auth.getUser().subscribe(data => {
+      console.log(data);
+    })
   }
 }

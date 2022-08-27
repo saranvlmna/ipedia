@@ -8,6 +8,7 @@ module.exports = {
     findByEmail: async (email) => {
         return await User.findOne({ email });
     },
+    
     findByMobile: async (number) => {
         return await User.findOne({ number })
     },

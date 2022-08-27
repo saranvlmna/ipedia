@@ -1,6 +1,7 @@
 const { User } = require("../db");
 const FRONTEND_URL = process.env.FRONTEND_URL
 const sendMail = require("./mail");
+const userController = require("../controllers/auth")
 
 module.exports = {
 

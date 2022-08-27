@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  user: any;
   returnUrl: string | undefined;
   loginForm = this.formBuilder.group({
     email: '',
@@ -24,12 +24,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
     this.auth.login(this.loginForm.value).subscribe(data => {
+      this.user = data
+      
       if (data) {
         this.router.navigate([this.returnUrl]);
       }
     })
+    console.log(this.user)
+   
   }
 
   googleAuth() {
