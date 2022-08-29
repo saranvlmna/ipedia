@@ -3,18 +3,6 @@ const { BadRequestError } = require("../errors")
 
 async function create(products, img) {
     try {
-        if (!products.name) {
-            throw new BadRequestError("Missing name")
-        }
-        else if (!products.price) {
-            throw new BadRequestError("Missing price")
-        }
-        else if (!products.description) {
-            throw new BadRequestError("Missing description")
-        }
-        else if (!products.category) {
-            throw new BadRequestError("Missing category")
-        }
         products = await Prdcs.create(products);
         let image = img
         image.mv('./' + products + '.jpg', (err) => {

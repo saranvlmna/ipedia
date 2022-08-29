@@ -1,4 +1,7 @@
 module.exports={
-    Prdcs:require("./products"),
-    User: require("./user"),
+    product:require("./products"),
+    user: require("./user"),
+    cart: require('./cart'),
+    wishlist: require('./wishlist'),
+    order:require('./order')
 };

@@ -1,46 +1,24 @@
-const { response } = require("express")
-const { Prdcs } = require("../models")
+const { product } = require("../models")
 
 module.exports = {
 
-    create: (products) => {
-        return new Promise(async (resolve) => {
-            await Prdcs.create(products).then((prdct) => {
-                resolve(prdct._id)
-            })
-        })
+    create: async (products) => {
+        return await product.create(products)
     },
 
     list: async (skip, limit) => {
-        let query = {};
-        return await Prdcs.find(query).skip(skip).limit(limit).lean()
+        return await product.find()
     },
 
     delete: async (id) => {
-        return new Promise(async (resolve) => {
-            await Prdcs.deleteOne({ _id: id }).then((response) => {
-                resolve(response)
-            })
-        })
+        await product.deleteOne({ _id: id })
     },
 
     edit: async (id, data) => {
-        return new Promise(async (resolve) => {
-            await Prdcs.updateOne({ _id: id }, {
-                $set: {
-                    name: data.name,
-                    price: data.price,
-                    description: data.description,
-                    category: data.category,
-                }
-            }).then((response) => {
-                resolve(response)
-            })
-        })
+        await product.updateOne({ _id: id }, { data })
     },
 
     findOne: async (id) => {
-        return await Prdcs.findOne({ _id: id })
-
+        return await product.findOne({ _id: id })
     }
 }

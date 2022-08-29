@@ -27,6 +27,6 @@ auth.post('/signup', authController.signup)
 auth.get('/google', authenticate)
 auth.get('/google/callback', authenticate, googleAuthService.callback)
 auth.get('/failed', authController.authFailed)
-auth.get('/user', authController.getUser)
+// auth.get('/user', authController.getUser)
 
 module.exports = auth

@@ -9,6 +9,9 @@ const schema = new Schema({
     number: {
         type: Number,
     },
+    address: {
+        type: String
+    },
     password: {
         type: String,
     },
@@ -21,9 +24,16 @@ const schema = new Schema({
     refreshToken: {
         type: String,
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    orders: {
+        type: Array
     },
     createdAt: {
         type: Date,
@@ -35,4 +45,4 @@ const schema = new Schema({
     }
 })
 
-module.exports = model("User", schema)
+module.exports = model("user", schema)
