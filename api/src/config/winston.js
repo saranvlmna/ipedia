@@ -12,10 +12,10 @@ const logFormat =
   config.get("node_env") == "prod"
     ? format.combine(format.errors({ stack: true }), format.json())
     : format.combine(
-      format.errors({ stack: true }),
-      format.colorize(),
-      format.simple()
-    );
+        format.errors({ stack: true }),
+        format.colorize(),
+        format.simple()
+      );
 
 const logger = createLogger({
   transports: [new transports.Console(options)],
