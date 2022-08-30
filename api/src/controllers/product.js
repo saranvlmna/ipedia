@@ -29,24 +29,21 @@ module.exports = {
     }
   },
 
-  deleteProduct: async (req, res) => {
+  deleteProduct: async (req, res, next) => {
     try {
-      const id = req.query.id;
-      const result = await productsService.deleteProduct(id);
+      const result = await productsService.deleteProduct(req.params.id);
       res.status(StatusCodes.OK).json({
         message: "Product deleted successfully",
         data: result
       });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   },
 
   listProducts: async (req, res, next) => {
     try {
-      const limit = req.query.limit || 20;
-      const page = req.query.page || 1;
-      const details = await productsService.list(page, limit);
+      const details = await productsService.listProduct();
       return res.status(StatusCodes.OK).json({
         message: "Products details fetched successfully",
         data: details
@@ -56,5 +53,15 @@ module.exports = {
     }
   },
 
-  findById: async (req, res, next) => {}
+  findById: async (req, res, next) => {
+    try {
+      const product = await productsService.findProduct(req.params.id);
+      return res.status(StatusCodes.OK).json({
+        message: "Product fetched successfully",
+        data: product
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 };
