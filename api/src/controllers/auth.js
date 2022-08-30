@@ -2,23 +2,11 @@ const { StatusCodes } = require("http-status-codes");
 const { authService } = require("../services");
 
 module.exports = {
-  login: async (req, res, next) => {
-    try {
-      const user = await authService.loginUser(req.body);
-      return res.status(StatusCodes.OK).json({
-        message: "user logged in successfully",
-        data: user
-      });
-    } catch (error) {
-      next(error);
-    }
-  },
-
   signup: async (req, res, next) => {
     try {
       const user = await authService.signupUser(req.body);
       return res.status(StatusCodes.OK).json({
-        message: "user signed up successfully",
+        message: "User signed up successfully",
         data: user
       });
     } catch (error) {
@@ -26,15 +14,59 @@ module.exports = {
     }
   },
 
-  authFailed: (req, res, next) => {
+  login: async (req, res, next) => {
+    try {
+      const user = await authService.loginUser(req.body);
+      return res.status(StatusCodes.OK).json({
+        message: "User logged in successfully",
+        data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  updateUser: async (req, res, next) => {
+    try {
+      const user = await authService.updateUser(req.params.id, req.body);
+      return res.status(StatusCodes.OK).json({
+        message: "User updated successfully",
+        data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  listUsers: async (res, next) => {
+    try {
+      const user = await authService.listUsers();
+      return res.status(StatusCodes.OK).json({
+        message: "User fetched successfully",
+        data: user
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  deleteUser: async (req, res, next) => {
+    try {
+      const result = await authService.deleteUser(req.params.id);
+      return res.status(StatusCodes.OK).json({
+        message: "User deleted successfully",
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  authFailed: () => {
     try {
       console.log("authFailed");
     } catch (error) {
       next(error);
     }
-  },
-
-  updateUser: (req, res, next) => {},
-
-  listUsers: (req, res, next) => {}
+  }
 };
