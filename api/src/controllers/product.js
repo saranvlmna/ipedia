@@ -1,7 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
 const productsService = require("../services/products");
-const path = require("path");
-const filepath = path.join(__dirname, "../../public/");
 
 module.exports = {
   addProduct: async (req, res, next) => {
