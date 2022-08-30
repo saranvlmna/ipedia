@@ -6,16 +6,16 @@ module.exports = {
         return await product.create(products)
     },
 
-    list: async (skip, limit) => {
+    list: async () => {
         return await product.find()
     },
 
     delete: async (id) => {
-        await product.deleteOne({ _id: id })
+       return await product.deleteOne({ _id: id })
     },
 
     edit: async (id, data) => {
-        await product.updateOne({ _id: id }, { data })
+       return await product.updateOne({ _id: id }, data )
     },
 
     findOne: async (id) => {

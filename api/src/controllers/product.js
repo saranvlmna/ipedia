@@ -7,12 +7,8 @@ const filepath = path.join(__dirname, '../../public/')
 module.exports = {
 
     addProduct: async (req, res, next) => {
-        console.log(req.files)
         try {
-            const product = await productsService.create(req.body);
-            if (product) {
-                req.files.image.mv(filepath + product.id + '.jpg')
-            }
+            const product = await productsService.createProduct(req.body);
             return res.status(StatusCodes.CREATED).json({
                 message: "Product created successfully",
                 data: product,
@@ -22,17 +18,16 @@ module.exports = {
         }
     },
 
-    editProduct: async (req, res) => {
+    editProduct: async (req, res,next) => {
         try {
-            const id = req.query.id
-            const data = req.body
-            const result = await productsService.editProduct(id, data)
+            const result = await productsService.editProduct(req.params.id, req.body)
+            console.log(result)
             return res.status(StatusCodes.OK).json({
                 message: "Product updated successfully",
                 data: result,
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
 
     },

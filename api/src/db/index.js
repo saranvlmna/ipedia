@@ -1,4 +1,4 @@
 module.exports={
-    Prdcs:require("./products"),
+    products:require("./products"),
     User: require("./user"),
 }

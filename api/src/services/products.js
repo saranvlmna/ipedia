@@ -1,43 +1,29 @@
-const { Prdcs } = require("../db")
+const { products } = require("../db")
 const { BadRequestError } = require("../errors")
 
-async function create(products, img) {
-    try {
-        products = await Prdcs.create(products);
-        let image = img
-        image.mv('./' + products + '.jpg', (err) => {
-            if (err) {
-                console.log(err)
-            }
+module.exports = {
+
+    createProduct: async(products, img) => {
+        return await products.create(products).then((res) => {
+            let image = img
+            image.mv('./' + res._id + '.jpg')
         })
-        return
-    } catch (error) {
-        console.log(error)
+    },
+
+    list:async() => {
+        return await products.list();
+    },
+
+    FindProduct: async(id) => {
+        return await products.findOne(id)
+    },
+
+    deleteProduct:async (id) => {
+        await products.delete(id)
+    },
+
+    editProduct: async(id, data) => {
+        return await products.edit(id, data)
     }
 
-}
-
-async function list(page, limit) {
-    const skip = (page - 1) * limit;
-    return await Prdcs.list(skip, limit);
-}
-
-async function FindProduct(id) {
-    return await Prdcs.findOne(id)
-}
-
-async function deleteProduct(id) {
-    await Prdcs.delete(id)
-}
-
-async function editProduct(id, data) {
-    var abc = await Prdcs.edit(id, data)
-}
-
-module.exports = {
-    create,
-    list,
-    deleteProduct,
-    editProduct,
-    FindProduct
 }
