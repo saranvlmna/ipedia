@@ -3,11 +3,8 @@ const path = require("path");
 const filepath = path.join(__dirname, "../../public/");
 
 module.exports = {
-  createProduct: async (data, img) => {
-    return await products.create(data).then((res) => {
-      // let image = img;
-      // image.mv(filepath + res._id + ".jpg");
-    });
+  createProduct: async (product) => {
+    return await products.create(product)
   },
 
   listProduct: async () => {

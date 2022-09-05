@@ -1,15 +1,25 @@
+const util = require("util");
+const path = require("path");
 const multer = require("multer");
+const dir = path.join(__dirname, "../../public");
+console.log(dir)
 
-const fileUpload = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public");
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
-    const ext = file.mimetype.split("/")[1];
-    cb(null, `files/admin-${file.fieldname}-${Date.now()}.${ext}`);
+    cb(
+      null,
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+    );
   }
 });
 
-module.exports = {
-  fileUpload: fileUpload
+const uploadCustomerData = multer({ storage }).single("image");
+const upload = util.promisify(uploadCustomerData);
+
+module.exports = async (req, res, next) => {
+  await upload(req, res);
+  next();
 };
