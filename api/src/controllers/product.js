@@ -4,8 +4,8 @@ const productsService = require("../services/products");
 module.exports = {
   addProduct: async (req, res, next) => {
     try {
-      var data = req.body
-      data.image = req.file.path
+      var data = req.body;
+      data.image = req.file.path;
       const product = await productsService.createProduct(data);
       return res.status(StatusCodes.CREATED).json({
         message: "Product created successfully",

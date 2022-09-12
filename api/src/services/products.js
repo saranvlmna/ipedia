@@ -4,7 +4,7 @@ const filepath = path.join(__dirname, "../../public/");
 
 module.exports = {
   createProduct: async (product) => {
-    return await products.create(product)
+    return await products.create(product);
   },
 
   listProduct: async () => {

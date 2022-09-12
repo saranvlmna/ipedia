@@ -2,7 +2,6 @@ const util = require("util");
 const path = require("path");
 const multer = require("multer");
 const dir = path.join(__dirname, "../../public");
-console.log(dir)
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

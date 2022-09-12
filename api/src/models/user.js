@@ -24,6 +24,10 @@ const schema = new Schema({
   refreshToken: {
     type: String
   },
+  isGLogin: {
+    type: Boolean,
+    default: false
+  },
   isActive: {
     type: Boolean,
     default: true

@@ -22,11 +22,14 @@ const authenticate = passport.authenticate("google", {
   prompt: "consent"
 });
 
-auth.post("/login", authController.login);
 auth.post("/signup", authController.signup);
+auth.post("/login", authController.login);
+auth.put("/update", authController.updateUser);
+auth.get("/list", authController.listUsers);
+auth.delete("/delete", authController.deleteUser);
+
 auth.get("/google", authenticate);
 auth.get("/google/callback", authenticate, googleAuthService.callback);
 auth.get("/failed", authController.authFailed);
-// auth.get('/user', authController.getUser)
 
 module.exports = auth;

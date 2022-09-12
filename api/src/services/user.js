@@ -11,7 +11,7 @@ module.exports = {
       throw new Error("User Already exists with this Email id");
     }
 
-    existingUser = await User.findByMobile(data.phone);
+    existingUser = await User.findByMobile(data.number);
     if (existingUser) {
       throw new Error("User Already exists with this Mobile Number");
     }
