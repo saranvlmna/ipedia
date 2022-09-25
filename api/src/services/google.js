@@ -12,7 +12,7 @@ module.exports = {
       accessToken: accessToken,
       refreshToken: refreshToken
     };
-    const user = await loginOrsignup(query);
+    const user = await findOrCreate(query);
     return callback(null, user);
   },
 
@@ -25,11 +25,12 @@ module.exports = {
   },
 
   callback: (req, res) => {
+    console.log(req.user)
     res.redirect(`${FRONTEND_URL}`);
   }
 };
 
-const loginOrsignup = async (user) => {
+const findOrCreate = async (user) => {
   let existingUser;
   existingUser = await User.findByEmail(user.email);
   if (!existingUser) {

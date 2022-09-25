@@ -10,5 +10,29 @@ module.exports = {
 
   findByMobile: async (number) => {
     return await User.findOne({ number });
+  },
+
+  update: async (id, user) => {
+    return await User.updateOne(
+      {
+        _id: id
+      },
+      user
+    );
+  },
+
+  list: async () => {
+    return await User.find();
+  },
+
+  inActive: async (id) => {
+    return await User.updateOne(
+      { _id: id },
+      {
+        $set: {
+          isActive: false
+        }
+      }
+    );
   }
 };

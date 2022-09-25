@@ -42,5 +42,17 @@ module.exports = {
     } else if (isValid) {
       return existingUser;
     }
+  },
+
+  updateUser: async (id, user) => {
+    return await User.update(id, user);
+  },
+
+  listUsers: async () => {
+    return await User.list();
+  },
+
+  deleteUser: async (id) => {
+    return await User.inActive(id);
   }
 };

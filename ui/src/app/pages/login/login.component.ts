@@ -1,42 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
+import { AuthService } from "src/app/services/auth.service";
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   user: any;
   returnUrl: string | undefined;
   loginForm = this.formBuilder.group({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   });
 
-
-  constructor(private formBuilder: FormBuilder, private auth: AuthService,
-    private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
   }
 
   onSubmit() {
-    this.auth.login(this.loginForm.value).subscribe(data => {
-      this.user = data
-      
+    this.auth.login(this.loginForm.value).subscribe((data) => {
+      this.user = data;
+
       if (data) {
         this.router.navigate([this.returnUrl]);
       }
-    })
-    console.log(this.user)
-   
+    });
+    console.log(this.user);
   }
 
   googleAuth() {
-    this.auth.googleAuth()
+    this.auth.googleAuth();
   }
-
 }

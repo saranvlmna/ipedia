@@ -4,19 +4,25 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 var path = require("path");
 const session = require("express-session");
+require("dotenv").config();
 
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
-
-var authRouter = require("./routes/auth");
-var productRouter = require("./routes/product");
+const { authRouter, productRouter, cartRouter } = require("./routes");
 
 const app = express();
 
 //db connection
 dbConfig();
 
-app.use(session({ secret: "kannappan" }));
+app.use(
+  session({
+    name: "vLmNa_session",
+    secret: "saranvlmna",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../public")));
@@ -25,8 +31,9 @@ app.use(helmet());
 app.use(morgan("combined", morganOption));
 
 // routes
-app.use("/auth", authRouter);
-app.use("/", productRouter);
+app.use("/api/", productRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/cart", cartRouter);
 
 // custom middleware
 app.use(errorHandler);
