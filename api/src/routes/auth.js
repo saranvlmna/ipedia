@@ -24,9 +24,9 @@ const authenticate = passport.authenticate("google", {
 
 auth.post("/signup", authController.signup);
 auth.post("/login", authController.login);
-auth.put("/update", authController.updateUser);
+auth.put("/update/:id", authController.updateUser);
+auth.put("/delete/:id", authController.deleteUser);
 auth.get("/list", authController.listUsers);
-auth.delete("/delete", authController.deleteUser);
 
 auth.get("/google", authenticate);
 auth.get("/google/callback", authenticate, googleAuthService.callback);

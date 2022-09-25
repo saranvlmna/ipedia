@@ -38,7 +38,7 @@ module.exports = {
     }
   },
 
-  listUsers: async (res, next) => {
+  listUsers: async (req, res, next) => {
     try {
       const user = await authService.listUsers();
       return res.status(StatusCodes.OK).json({
