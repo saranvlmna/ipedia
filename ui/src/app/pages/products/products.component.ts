@@ -22,4 +22,12 @@ export class ProductsComponent implements OnInit {
       console.log(this.productsList)
     })
   }
+
+  addToCart(product: any) {
+    console.log(product)
+  }
+
+  addToWishList(product:any) {
+    console.log(product)
+  }
 }
