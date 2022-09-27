@@ -14,8 +14,7 @@ export class DashboardComponent implements OnInit {
 
   getUser() {
     this.authService.me().subscribe((res: any) => {
-      this.user = res.data;
-      console.log(this.user);
+      this.user = res.data.passport?res.data.passport.user:""
     });
   }
 }
