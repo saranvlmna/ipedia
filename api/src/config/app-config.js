@@ -52,6 +52,16 @@ const schema = {
   frontendUrl: {
     default: "http://localhost:4200/",
     env: "FRONTEND_URL"
+  },
+  jwt: {
+    secret: {
+      default: ";2`<(w$kx#a/(5tD&pGld!.l(sde",
+      env: "JWT_SECRET"
+    },
+    expiry: {
+      default: "12h",
+      env: "JWT_EXPIRY"
+    }
   }
 };
 

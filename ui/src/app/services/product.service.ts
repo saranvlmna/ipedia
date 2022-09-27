@@ -10,6 +10,6 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get(`${BASE_URL}`, {})
+    return this.http.get(`${BASE_URL}`, {});
   }
 }

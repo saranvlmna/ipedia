@@ -1,7 +1,6 @@
 const { User } = require("../db");
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const sendMail = require("./mail");
-const userController = require("../controllers/auth");
 
 module.exports = {
   verify: async (accessToken, refreshToken, profile, callback) => {
@@ -24,8 +23,7 @@ module.exports = {
     return callback(null, user);
   },
 
-  callback: (req, res) => {
-    console.log(req.user)
+  callback: async (req, res) => {
     res.redirect(`${FRONTEND_URL}`);
   }
 };

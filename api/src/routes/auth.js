@@ -27,6 +27,7 @@ auth.post("/login", authController.login);
 auth.put("/update/:id", authController.updateUser);
 auth.put("/delete/:id", authController.deleteUser);
 auth.get("/list", authController.listUsers);
+auth.get("/me", authController.me);
 
 auth.get("/google", authenticate);
 auth.get("/google/callback", authenticate, googleAuthService.callback);
