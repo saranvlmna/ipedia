@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-const BASE_URL = "/api/";
+const BASE_URL = "api/cart/";
 
 @Injectable({
   providedIn: "root"
 })
-export class ProductService {
+export class CartService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
-    return this.http.get(`${BASE_URL}`, {});
+  add(prdId: string, usrId: string) {
+    return this.http.post(`${BASE_URL}` + "add/" + prdId + "/" + usrId, {});
   }
 }

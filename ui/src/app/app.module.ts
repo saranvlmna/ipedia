@@ -8,7 +8,9 @@ import { AppComponent } from "./app.component";
 import { SignupComponent } from "./pages/signup/signup.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
-import { ProductsComponent } from './pages/products/products.component';
+import { ProductsComponent } from "./pages/products/products.component";
+import { CartComponent } from "./pages/cart/cart.component";
+import { OrdersComponent } from "./pages/orders/orders.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ProductsComponent } from './pages/products/products.component';
     SignupComponent,
     LoginComponent,
     DashboardComponent,
-    ProductsComponent
+    ProductsComponent,
+    CartComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

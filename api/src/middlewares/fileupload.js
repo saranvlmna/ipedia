@@ -1,7 +1,7 @@
 const util = require("util");
 const path = require("path");
 const multer = require("multer");
-const dir = path.join(__dirname, "../../public");
+const dir = path.join(__dirname, "../../../ui/src/assets/prdctsimgs/");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

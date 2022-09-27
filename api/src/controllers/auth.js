@@ -68,5 +68,15 @@ module.exports = {
     } catch (error) {
       next(error);
     }
+  },
+
+  me(req, res) {
+    try {
+      const user = req.session.passport.user ? req.session.passport.user : null;
+      return res.status(StatusCodes.OK).json({
+        message: "User fetched successfully",
+        data: user
+      });
+    } catch (error) {}
   }
 };
