@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductService } from "src/app/services/product.service";
 import { CartService } from "src/app/services/cart.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-products",
@@ -10,8 +11,9 @@ import { CartService } from "src/app/services/cart.service";
 export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
-    private cartService: CartService
-  ) {}
+    private cartService: CartService,
+    private authService: AuthService
+  ) { }
   productsList: any[] = [];
 
   ngOnInit(): void {
@@ -24,9 +26,17 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  addToCart(product: any) {
-    product._id;
-    this.cartService.add(product._id, product._id).subscribe((res: any) => {});
+  async addToCart(product: any) {
+    this.authService.me().subscribe((res: any) => {
+      if (res.data.passport) {
+        this.cartService.add(res.data.passport.user._id, product._id).subscribe((res: any) => {
+          console.log(res.data)
+        });
+      } else {
+        this.authService.googleAuth()
+      }
+    })
+
   }
 
   addToWishList(product: any) {
