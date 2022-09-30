@@ -63,11 +63,11 @@
     </a>
 
     <div>
-      <div *ngIf="user.picture">
-        <img class="user" src="{{ user.picture }}" />
+      <div *ngIf="this.userImg">
+        <img class="user" src="{{this.userImg }}" />
       </div>
 
-      <div *ngIf="!user.picture">
+      <div *ngIf="!this.userImg">
         <a href="/login">
           <p
             class="text-success"
