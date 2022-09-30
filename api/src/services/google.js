@@ -24,6 +24,10 @@ module.exports = {
   },
 
   callback: async (req, res) => {
+    const currentUser = req.user ? req.user : null;
+    res.cookie("currentUser", currentUser, {
+      expires: new Date(Date.now() + 900000)
+    });
     res.redirect(`${FRONTEND_URL}`);
   }
 };

@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 var path = require("path");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const { morganOption, dbConfig } = require("./config");
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(cors());
 app.use(helmet());
 app.use(morgan("combined", morganOption));
+app.use(cookieParser());
 
 // routes
 app.use("/api/", productRouter);

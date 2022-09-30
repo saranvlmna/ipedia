@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
 
 const BASE_URL = "/api/auth";
 
@@ -18,10 +19,12 @@ export class AuthService {
   }
 
   googleAuth() {
-    return (window.location.href = `${BASE_URL}/google`);
+    return (window.location.href = `${BASE_URL}/google`)
   }
 
+  user: any
+  
   me() {
-    return this.http.get(`${BASE_URL}/me`);
+    return this.http.get(`${BASE_URL}/me`)
   }
 }
