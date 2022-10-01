@@ -1,31 +1,41 @@
 const Cart = require("../models/cart");
 const { ObjectId } = require("mongodb");
-const mongoose = require("mongoose");
 
 module.exports = {
   findOrCreate: async (userId, prdcId) => {
-    await Cart.findOne({ userId: userId }).then(async (res) => {
-      if (res == null) {
-        await Cart.create({
-          userId: userId,
-          products: {
-            quantity: 1,
-            $push: { prdcId }
+    const userCart = await Cart.findOne({ userId: userId });
+    let pdrcObj = {
+      item: ObjectId(prdcId),
+      quantity: 1
+    };
+    if (userCart) {
+      const productExist = userCart.products.findIndex(
+        (products) => products.item.toString() == prdcId.toString()
+      );
+      if (productExist != -1) {
+        await Cart.updateOne(
+          {
+            userId: ObjectId(userId),
+            "products.item": ObjectId(prdcId)
+          },
+          {
+            $inc: { "products.$.quantity": 1 }
           }
-        });
+        );
       } else {
         await Cart.updateOne(
-          { userId: userId },
+          { userId: ObjectId(userId) },
           {
-            $push: {
-              products: {
-                prdcId: prdcId,
-                quantity: 1
-              }
-            }
+            $push: { products: pdrcObj }
           }
         );
       }
-    });
+    } else {
+      let cartObj = {
+        userId: ObjectId(userId),
+        products: [pdrcObj]
+      };
+      await Cart.create(cartObj);
+    }
   }
 };
