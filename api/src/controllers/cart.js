@@ -17,9 +17,20 @@ module.exports = {
     }
   },
 
+  listCart: async (req, res, next) => {
+    try {
+      const userCart = await cartService.getUserCart(req.params.userId);
+      return res.status(StatusCodes.OK).json({
+        message: "User cart fetched successfully",
+        data: userCart
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   removeProduct: (req, res, next) => {},
   updateProduct: (req, res, next) => {},
-  listCart: (req, res, next) => {},
   addToWishlist: (req, res, next) => {},
   removeWishlist: (req, res, next) => {},
   listWishlist: (req, res, next) => {}

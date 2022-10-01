@@ -12,4 +12,7 @@ export class CartService {
   add(prdId: string, usrId: string) {
     return this.http.post(`${BASE_URL}` + "add/" + prdId + "/" + usrId, {});
   }
+  get(userId: any) {
+    return this.http.get(`${BASE_URL}` + userId);
+  }
 }

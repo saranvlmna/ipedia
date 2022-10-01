@@ -37,5 +37,44 @@ module.exports = {
       };
       await Cart.create(cartObj);
     }
+  },
+
+  listUserCart: async (userId) => {
+    return await Cart.aggregate([
+      {
+        $match: { userId: ObjectId(userId) }
+      },
+      {
+        $unwind: "$products"
+      },
+      {
+        $project: {
+          item: "$products.item",
+          quantity: "$products.quantity"
+        }
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "item",
+          foreignField: "_id",
+          as: "product"
+        }
+      },
+      {
+        $project: {
+          item: 1,
+          quantity: 1,
+          product: { $arrayElemAt: ["$product", 0] }
+        }
+      },
+      {
+        $group: {
+          _id: userId,
+          total: { $sum: { $multiply: ["$quantity", "$product.price"] } },
+          products: { $push: "$$ROOT" }
+        }
+      }
+    ]);
   }
 };
