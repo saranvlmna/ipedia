@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private authService: AuthService
-  ) { }
+  ) {}
   productsList: any[] = [];
 
   ngOnInit(): void {
@@ -29,14 +29,15 @@ export class ProductsComponent implements OnInit {
   async addToCart(product: any) {
     this.authService.me().subscribe((res: any) => {
       if (res.data.passport) {
-        this.cartService.add(res.data.passport.user._id, product._id).subscribe((res: any) => {
-          console.log(res.data)
-        });
+        this.cartService
+          .add(res.data.passport.user._id, product._id)
+          .subscribe((res: any) => {
+            console.log(res.data);
+          });
       } else {
-        this.authService.googleAuth()
+        this.authService.googleAuth();
       }
-    })
-
+    });
   }
 
   addToWishList(product: any) {

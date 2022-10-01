@@ -39,6 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   googleAuth() {
-    this.auth.googleAuth()
+    this.auth.googleAuth();
   }
 }
