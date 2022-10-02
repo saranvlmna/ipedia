@@ -19,12 +19,12 @@ export class AuthService {
   }
 
   googleAuth() {
-    return (window.location.href = `${BASE_URL}/google`)
+    return (window.location.href = `${BASE_URL}/google`);
   }
 
-  user: any
-  
+  user: any;
+
   me() {
-    return this.http.get(`${BASE_URL}/me`)
+    return this.http.get(`${BASE_URL}/me`);
   }
 }

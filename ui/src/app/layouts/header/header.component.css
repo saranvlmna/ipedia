@@ -1,0 +1,21 @@
+.dashboard {
+  background-color: rgb(251, 239, 239);
+  position: relative;
+  height: 200px;
+}
+
+.user {
+  float: right;
+  margin-top: 2em;
+  margin-right: 1em;
+}
+
+.user-align {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}

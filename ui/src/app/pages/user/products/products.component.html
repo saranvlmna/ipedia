@@ -1,0 +1,78 @@
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+</head>
+
+<body>
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          id="myCarousel"
+          class="carousel slide"
+          data-ride="carousel"
+          data-interval="0"
+        >
+          <!-- Wrapper for carousel items -->
+          <div class="carousel-inner">
+            <div class="item carousel-item active">
+              <div class="row">
+                <div class="col-sm-3" *ngFor="let item of productsList">
+                  <div class="thumb-wrapper" style="margin-top: 2em">
+                    <span class="wish-icon" (click)="addToWishList(item)"
+                      ><i class="fa fa-heart-o"></i
+                    ></span>
+                    <div class="img-box">
+                      <img
+                        src="../../../assets/prdctsimgs/{{ item.image }}"
+                        class="img-fluid"
+                        alt=""
+                      />
+                    </div>
+                    <div class="thumb-content">
+                      <h4>{{ item.name }}</h4>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item">
+                            <i class="fa fa-star"></i>
+                          </li>
+                          <li class="list-inline-item">
+                            <i class="fa fa-star"></i>
+                          </li>
+                          <li class="list-inline-item">
+                            <i class="fa fa-star"></i>
+                          </li>
+                          <li class="list-inline-item">
+                            <i class="fa fa-star"></i>
+                          </li>
+                          <li class="list-inline-item">
+                            <i class="fa fa-star-o"></i>
+                          </li>
+                        </ul>
+                      </div>
+                      <h4>₹{{ item.price }}</h4>
+                      <button class="btn btn-primary" (click)="addToCart(item)">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

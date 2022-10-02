@@ -5,18 +5,7 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user"
   },
-  products: [
-    {
-      quantity: 0,
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "product"
-      }
-    }
-  ],
-  price: {
-    type: Number
-  },
+  products: [],
   createdAt: {
     type: Date,
     default: Date.now()

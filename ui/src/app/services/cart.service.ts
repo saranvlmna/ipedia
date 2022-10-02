@@ -12,4 +12,18 @@ export class CartService {
   add(prdId: string, usrId: string) {
     return this.http.post(`${BASE_URL}` + "add/" + prdId + "/" + usrId, {});
   }
+  get(userId: any) {
+    return this.http.get(`${BASE_URL}` + userId);
+  }
+
+  delete(userId: any, prdId: any) {
+    return this.http.post(`${BASE_URL}` + "delete/" + userId + "/" + prdId, {});
+  }
+
+  update(userId: any, prdId: any, action: any) {
+    return this.http.post(
+      `${BASE_URL}` + "update/" + userId + "/" + prdId + "/" + action,
+      {}
+    );
+  }
 }
