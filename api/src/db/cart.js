@@ -76,5 +76,25 @@ module.exports = {
         }
       }
     ]);
+  },
+
+  removeProduct: async (userId, prdcId) => {
+    return await Cart.updateOne(
+      { userId: ObjectId(userId) },
+      { $pull: { products: { item: ObjectId(prdcId) } } }
+    );
+  },
+
+  updateProduct: async (userId, prdcId, action) => {
+    action = parseInt(action);
+    return await Cart.updateOne(
+      {
+        userId: ObjectId(userId),
+        "products.item": ObjectId(prdcId)
+      },
+      {
+        $inc: { "products.$.quantity": action }
+      }
+    );
   }
 };

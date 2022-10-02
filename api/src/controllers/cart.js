@@ -29,8 +29,35 @@ module.exports = {
     }
   },
 
-  removeProduct: (req, res, next) => {},
-  updateProduct: (req, res, next) => {},
+  removeProduct: async (req, res, next) => {
+    try {
+      const result = await cartService.deleteProduct(
+        req.params.userId,
+        req.params.prdId
+      );
+      return res.status(StatusCodes.OK).json({
+        message: "Cart Product removed successfully",
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+  updateProduct: async (req, res, next) => {
+    try {
+      const result = await cartService.updateProduct(
+        req.params.userId,
+        req.params.prdId,
+        req.params.action
+      );
+      return res.status(StatusCodes.OK).json({
+        message: "Cart updated successfully",
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   addToWishlist: (req, res, next) => {},
   removeWishlist: (req, res, next) => {},
   listWishlist: (req, res, next) => {}

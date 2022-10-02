@@ -23,7 +23,20 @@ export class CartComponent implements OnInit {
   getUserCart() {
     this.cartService.get(this.userId).subscribe((res: any) => {
       this.cartList = res.data;
-      console.log(this.cartList);
     });
+  }
+
+  deleteProduct(prdId: any) {
+    this.cartService.delete(this.userId, prdId).subscribe((res: any) => {
+      this.getUserCart();
+    });
+  }
+
+  updateProduct(prdId: any, action: any) {
+    this.cartService
+      .update(this.userId, prdId, action)
+      .subscribe((res: any) => {
+        this.getUserCart();
+      });
   }
 }

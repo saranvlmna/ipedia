@@ -6,5 +6,13 @@ module.exports = {
 
   getUserCart: async (userId) => {
     return await cart.listUserCart(userId);
+  },
+
+  deleteProduct: async (userId, prdcId) => {
+    return await cart.removeProduct(userId, prdcId);
+  },
+
+  updateProduct: async (userId, prdcId, action) => {
+    return await cart.updateProduct(userId, prdcId, action);
   }
 };

@@ -15,4 +15,15 @@ export class CartService {
   get(userId: any) {
     return this.http.get(`${BASE_URL}` + userId);
   }
+
+  delete(userId: any, prdId: any) {
+    return this.http.post(`${BASE_URL}` + "delete/" + userId + "/" + prdId, {});
+  }
+
+  update(userId: any, prdId: any, action: any) {
+    return this.http.post(
+      `${BASE_URL}` + "update/" + userId + "/" + prdId + "/" + action,
+      {}
+    );
+  }
 }
