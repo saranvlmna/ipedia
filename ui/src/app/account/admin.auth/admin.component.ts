@@ -4,12 +4,11 @@ import { AuthService } from "src/app/services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.css"]
 })
-export class LoginComponent implements OnInit {
-  user: any;
+export class adminComponent implements OnInit {
   returnUrl: string | undefined;
   loginForm = this.formBuilder.group({
     email: "",
@@ -23,20 +22,13 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.auth.login(this.loginForm.value).subscribe((data) => {
-      this.user = data;
       if (data) {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/admin"]);
       }
     });
-  }
-
-  googleAuth() {
-    this.auth.googleAuth();
   }
 }

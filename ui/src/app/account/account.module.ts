@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { SignupComponent } from "../account/signup/signup.component";
-import { LoginComponent } from "../account/login/login.component";
+import { adminComponent } from "./admin.auth/admin.component";
+import { LoginComponent } from "./user.auth/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { accountRoutingModule } from "./accounts.routing";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent],
+  declarations: [adminComponent, LoginComponent],
   imports: [
     CommonModule,
     FormsModule,

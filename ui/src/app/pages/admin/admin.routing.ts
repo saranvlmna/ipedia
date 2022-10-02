@@ -1,13 +1,14 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-
 import { ProductsComponent } from "./products/products.component";
-import { CartComponent } from "./cart/cart.component";
+import { UsersComponent } from "./users/users.component";
 import { OrdersComponent } from "./orders/orders.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
-  { path: "", component: ProductsComponent },
-  { path: "cart", component: CartComponent },
+  { path: "", component: DashboardComponent },
+  { path: "products", component: ProductsComponent },
+  { path: "users", component: UsersComponent },
   { path: "orders", component: OrdersComponent }
 ];
 
@@ -15,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class pageRoutingModule {}
+export class adminRoutingModule {}

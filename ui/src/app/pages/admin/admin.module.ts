@@ -1,27 +1,27 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ProductsComponent } from "./products/products.component";
-import { CartComponent } from "./cart/cart.component";
 import { OrdersComponent } from "./orders/orders.component";
+import { UsersComponent } from "./users/users.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { pageRoutingModule } from "./page.routing";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { adminRoutingModule } from "./admin.routing";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     ProductsComponent,
-    CartComponent,
-    OrdersComponent
+    OrdersComponent,
+    UsersComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    pageRoutingModule,
+    adminRoutingModule,
     NgbModule
   ],
   providers: []
 })
-export class PagesModule {}
+export class AdminModule {}
