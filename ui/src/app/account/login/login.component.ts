@@ -30,12 +30,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.auth.login(this.loginForm.value).subscribe((data) => {
       this.user = data;
-
       if (data) {
-        this.router.navigate([this.returnUrl]);
+        this.router.navigate(["/"]);
       }
     });
-    console.log(this.user);
   }
 
   googleAuth() {

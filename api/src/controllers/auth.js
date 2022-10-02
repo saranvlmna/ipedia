@@ -5,6 +5,10 @@ module.exports = {
   signup: async (req, res, next) => {
     try {
       const user = await authService.signupUser(req.body);
+      const currentUser = user ? user : null;
+      res.cookie("currentUser", currentUser, {
+        expires: new Date(Date.now() + 900000)
+      });
       return res.status(StatusCodes.OK).json({
         message: "User signed up successfully",
         data: user
@@ -17,6 +21,10 @@ module.exports = {
   login: async (req, res, next) => {
     try {
       const user = await authService.loginUser(req.body);
+      const currentUser = user ? user : null;
+      res.cookie("currentUser", currentUser, {
+        expires: new Date(Date.now() + 900000)
+      });
       return res.status(StatusCodes.OK).json({
         message: "User logged in successfully",
         data: user
