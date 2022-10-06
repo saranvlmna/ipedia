@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   googleAuth() {
-    location.href = "api/auth/google"
+    location.href = "api/auth/google";
   }
 
   user: any;
