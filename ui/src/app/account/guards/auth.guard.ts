@@ -13,7 +13,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.cookieService.get("currentUser").slice(2);
-    const isAdmin = JSON.parse(currentUser).isAdmin
+    let isAdmin: any;
+    currentUser? isAdmin= JSON.parse(currentUser).isAdmin:null
 
     if (currentUser) {
       // logged in so return true
@@ -30,7 +31,6 @@ export class AuthGuard implements CanActivate {
     }
 
     // not logged in so redirect to login page with the return url
-    if (state.url)
       if (state.url.substring(0, 6) == "/admin") {
         this.router.navigate(["/account/admin"]);
       } else {
