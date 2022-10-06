@@ -9,12 +9,12 @@ import { CookieService } from "ngx-cookie-service";
 
 @Injectable({ providedIn: "root" })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private cookieService: CookieService) { }
+  constructor(private router: Router, private cookieService: CookieService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.cookieService.get("currentUser").slice(2);
     let isAdmin: any;
-    currentUser? isAdmin= JSON.parse(currentUser).isAdmin:null
+    currentUser ? (isAdmin = JSON.parse(currentUser).isAdmin) : null;
 
     if (currentUser) {
       // logged in so return true
@@ -31,11 +31,11 @@ export class AuthGuard implements CanActivate {
     }
 
     // not logged in so redirect to login page with the return url
-      if (state.url.substring(0, 6) == "/admin") {
-        this.router.navigate(["/account/admin"]);
-      } else {
-        this.router.navigate(["/account/login"]);
-      }
+    if (state.url.substring(0, 6) == "/admin") {
+      this.router.navigate(["/account/admin"]);
+    } else {
+      this.router.navigate(["/account/login"]);
+    }
     return false;
   }
 }
