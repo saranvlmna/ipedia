@@ -9,7 +9,12 @@ require("dotenv").config();
 
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
-const { authRouter, productRouter, cartRouter } = require("./routes");
+const {
+  authRouter,
+  productRouter,
+  cartRouter,
+  userRouter
+} = require("./routes");
 
 const app = express();
 
@@ -36,6 +41,7 @@ app.use(cookieParser());
 app.use("/api/", productRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/user", userRouter);
 
 // custom middleware
 app.use(errorHandler);

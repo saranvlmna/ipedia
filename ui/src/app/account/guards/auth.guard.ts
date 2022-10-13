@@ -12,8 +12,8 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private cookieService: CookieService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (state.url== "/") {
-      return true
+    if (state.url == "/") {
+      return true;
     }
     const currentUser = this.cookieService.get("currentUser").slice(2);
     let isAdmin: any;
