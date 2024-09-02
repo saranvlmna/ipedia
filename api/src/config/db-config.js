@@ -19,7 +19,7 @@ module.exports = {
     connect(`${dbUrl}`, params);
 
     connection.on("connected", function () {
-      logger.info(`DB has been connected to ${port}`);
+      logger.info(`DB has been connected to ${dbUrl}`);
     });
   }
 };

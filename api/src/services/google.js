@@ -28,7 +28,8 @@ module.exports = {
     res.cookie("currentUser", currentUser, {
       expires: new Date(Date.now() + 900000)
     });
-    res.redirect(`${FRONTEND_URL}`);
+    res.send(currentUser);
+    // res.redirect(`${FRONTEND_URL}`);
   }
 };
 
